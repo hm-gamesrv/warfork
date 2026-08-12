@@ -15,8 +15,6 @@ RUN /home/steam/steamcmd/steamcmd.sh \
 # ===================
 FROM debian:trixie-slim AS base
 
-EXPOSE 44400/udp 44444/tcp
-
 ENV TZ=Asia/Shanghai
 
 RUN apt-get update && \
@@ -30,13 +28,15 @@ RUN apt-get update && \
 RUN groupadd -g 1000 gamesrv && \
     useradd -u 1000 -g gamesrv -m -s /bin/bash gamesrv
 RUN mkdir -p /app && chown 1000:1000 /app
-USER gamesrv
 
 COPY --chown=1000:1000 --from=downloader ["/home/steam/steamcmd/linux64/steamclient.so", "/home/gamesrv/.steam/sdk64/steamclient.so"]
 COPY --chown=1000:1000 --from=downloader ["/home/steam/Steam/steamapps/common/Dedicated Server", "/app"]
 COPY --chown=1000:1000 ["./patch/base", "/app"]
 
+EXPOSE 44400/udp 44444/tcp
+
 WORKDIR /app
+USER 1000:1000
 
 # ===================
 # 分支：双人对决
