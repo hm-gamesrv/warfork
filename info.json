@@ -1,0 +1,43 @@
+{
+    "schemaVersion": 1,
+    "key": "warfork",
+    "name": "Warfork",
+    "registries": {
+        "ghcr": "ghcr.io/hm-gamesrv/",
+        "aliyun": "crpi-i9e7zrpnu4792a5m.cn-chengdu.personal.cr.aliyuncs.com/hiromuraki/"
+    },
+    "resources": {
+        "ports": [
+            {
+                "host": "44400",
+                "container": "44400",
+                "proto": "udp",
+                "required": true,
+                "desc": "游戏联机端口"
+            },
+            {
+                "host": "44444",
+                "container": "44444",
+                "proto": "tcp",
+                "desc": "HTTP 相关端口"
+            }
+        ],
+        "volumes": [],
+        "env": [],
+        "extraArgs": ""
+    },
+    "variants": [
+        {
+            "key": "dm",
+            "name": "死亡竞赛",
+            "tag": "dm-latest",
+            "container": "warfork-dm-server"
+        },
+        {
+            "key": "dual",
+            "name": "1v1 对决",
+            "tag": "dual-latest",
+            "container": "warfork-dual-server"
+        }
+    ]
+}
