@@ -3,7 +3,6 @@
 # =================
 FROM cm2network/steamcmd AS downloader
 
-RUN /home/steam/steamcmd/steamcmd.sh +quit
 RUN /home/steam/steamcmd/steamcmd.sh \
     +@sSteamCmdForcePlatformType linux \
     +login anonymous \
@@ -17,16 +16,16 @@ FROM debian:trixie-slim AS base
 
 ENV TZ=Asia/Shanghai
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
         libstdc++6 \
         libcurl4 \
         zlib1g \
-        ca-certificates && \
-    rm -rf /var/lib/apt/lists/*
+        ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -g 1000 gamesrv && \
-    useradd -u 1000 -g gamesrv -m -s /bin/bash gamesrv
+RUN groupadd -g 1000 gamesrv \
+    && useradd -u 1000 -g gamesrv -m -s /bin/bash gamesrv
 RUN mkdir -p /app && chown 1000:1000 /app
 
 COPY --chown=1000:1000 --from=downloader ["/home/steam/steamcmd/linux64/steamclient.so", "/home/gamesrv/.steam/sdk64/steamclient.so"]
