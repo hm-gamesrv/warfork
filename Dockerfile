@@ -15,8 +15,6 @@ RUN mkdir -p /opt/depot-downloader \
 
 # 服务端文件内容
 RUN /opt/depot-downloader/DepotDownloader -os linux -validate -dir /download -app 1136510 -branch beta -depot 1136518 -manifest 6220042012545894201
-# Steam 库
-RUN /opt/depot-downloader/DepotDownloader -os linux -validate -dir /download -app 90 -depot 1006 -manifest 6403079453713498174
 
 # ===================
 # 基座镜像
@@ -38,7 +36,6 @@ RUN groupadd -g 1000 gamesrv \
 RUN mkdir -p /app && chown 1000:1000 /app
 
 COPY --from=download --chown=1000:1000 ["/download", "/app"]
-COPY --from=download --chown=1000:1000 ["/download/linux64/steamclient.so", "/app/bin/linux64/steamclient.so"]
 COPY --chown=1000:1000 ["./patch/base", "/app"]
 
 EXPOSE 44400/udp 44444/tcp
