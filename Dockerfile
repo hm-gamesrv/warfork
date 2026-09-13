@@ -14,7 +14,7 @@ RUN mkdir -p /opt/depot-downloader \
     && rm -f /depot-downloader/DepotDownloader-linux-x64.zip
 
 # 服务端文件内容
-RUN /opt/depot-downloader/DepotDownloader -os linux -validate -dir /download -app 1136510 -depot 1136518 -manifest 6220042012545894201
+RUN /opt/depot-downloader/DepotDownloader -os linux -validate -dir /download -app 1136510 -branch beta -depot 1136518 -manifest 6220042012545894201
 # Steam 库
 RUN /opt/depot-downloader/DepotDownloader -os linux -validate -dir /download -app 90 -depot 1006 -manifest 6403079453713498174
 
